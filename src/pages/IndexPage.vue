@@ -30,8 +30,8 @@
           @settings="openPeselSettingsDialog"
         >
           <template #afterLabel>
-            <q-chip v-if="peselSettings.gender" color="primary" text-color="white">
-              {{ peselSettings.gender === 'F' ? 'Kobieta' : 'Mężczyzna' }}
+            <q-chip v-if="peselSettings?.gender" color="primary" text-color="white">
+              {{ peselSettings?.gender === 'F' ? 'Kobieta' : 'Mężczyzna' }}
             </q-chip>
             <q-chip
               v-if="peselSettings.birthDate"
