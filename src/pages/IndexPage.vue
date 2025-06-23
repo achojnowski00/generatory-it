@@ -34,12 +34,12 @@
               {{ peselSettings?.gender === 'F' ? 'Kobieta' : 'Mężczyzna' }}
             </q-chip>
             <q-chip
-              v-if="peselSettings.birthDate"
+              v-if="peselSettings?.birthDate"
               color="primary"
               class="q-ma-none"
               text-color="white"
             >
-              {{ peselSettings.birthDate }}
+              {{ peselSettings?.birthDate }}
             </q-chip>
           </template>
         </NumberContainer>
