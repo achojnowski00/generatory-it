@@ -2,6 +2,12 @@
   <q-page class="row items-center justify-center">
     <div class="row q-col-gutter-lg" style="width: 100%; max-width: 1024px">
       <div class="col-12 text-white text-center text-subtitle1">Generator fałszywych numerów</div>
+      <div class="col-12 text-center">
+        <q-btn color="primary" @click="reloadAll">
+          Przeładuj wszystkie &nbsp;
+          <q-icon name="loop" />
+        </q-btn>
+      </div>
       <div class="col-12 col-md-6">
         <NumberContainer :text="vin" label="VIN" @refresh="refreshVin" />
       </div>
@@ -79,4 +85,13 @@ const {
 } = useFakePesel();
 const { polishId, refreshPolishId } = useFakePolishId();
 const { plate, refreshPlate } = useFakePlates();
+
+const reloadAll = () => {
+  refreshVin();
+  refreshNip();
+  refreshRegon();
+  refreshPesel();
+  refreshPolishId();
+  refreshPlate();
+};
 </script>

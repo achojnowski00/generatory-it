@@ -2,7 +2,7 @@
   "name": "generatory-it",
   "version": "0.0.1",
   "description": "A Quasar Project",
-  "productName": "Quasar App",
+  "productName": "Generator fake numerów",
   "author": "Aleksander Chojnowski <achojnowski00@gmail.com>",
   "type": "module",
   "private": true,
