@@ -1,0 +1,70 @@
+:root {
+  color-scheme: dark;
+  /* Widok 1040 px zachowuje cztery kolumny i kompaktową typografię strony. */
+  --site-scale: 0.7692307692;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 800px;
+  height: 480px;
+  margin: 0;
+  overflow: hidden;
+  background: #151815;
+  color: #e2e5dc;
+  font-family:
+    'Segoe UI',
+    -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+}
+
+.popup-content {
+  position: relative;
+  width: 100%;
+  height: 452px;
+  overflow: hidden;
+}
+
+.generators-frame {
+  display: block;
+  width: calc(100% / var(--site-scale));
+  height: calc(100% / var(--site-scale));
+  border: 0;
+  transform: scale(var(--site-scale));
+  transform-origin: top left;
+}
+
+.popup-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 28px;
+  padding: 0 14px;
+  border-top: 1px solid #343b31;
+}
+
+.popup-footer a {
+  color: #acb8a0;
+  font-size: 10px;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.popup-footer a:hover {
+  color: #e2e5dc;
+}
+
+.popup-footer a:focus-visible {
+  outline: 1px solid #b9a780;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.popup-footer span {
+  margin-left: 4px;
+}

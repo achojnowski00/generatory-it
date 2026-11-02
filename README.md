@@ -3,6 +3,11 @@
 Lokalne generatory danych testowych z kopiowaniem numerów jednym kliknięciem.
 Numery są pogrupowane w sekcje: Tożsamość, Firma, Finanse i Pojazdy.
 
+## Rozszerzenie Chrome
+
+W katalogu [chrome-extension](chrome-extension/README.md) znajduje się gotowe rozszerzenie otwierające stronę Netlify w popupie pod ikoną Chrome.
+Instalacja: `chrome://extensions` → **Tryb dewelopera** → **Załaduj rozpakowane** → katalog `chrome-extension`.
+
 ## REGON
 
 Przycisk obok etykiety REGON przełącza wariant 9- i 14-cyfrowy jednym kliknięciem.

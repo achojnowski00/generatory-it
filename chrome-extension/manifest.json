@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Generatory IT",
+  "version": "1.0.0",
+  "description": "Generatory danych testowych pod ikoną w pasku Chrome.",
+  "homepage_url": "https://generatory.netlify.app/",
+  "action": {
+    "default_title": "Generatory IT",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; object-src 'none'; frame-src https://generatory.netlify.app; base-uri 'none'"
+  }
+}
