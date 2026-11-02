@@ -1,5 +1,4 @@
-import { Cookies, Dialog } from 'quasar';
-import RegonSettingsModal from 'src/components/RegonSettingsModal.vue';
+import { Cookies } from 'quasar';
 import { ref, watch } from 'vue';
 
 export function useFakeRegon() {
@@ -58,22 +57,16 @@ export function useFakeRegon() {
     },
   );
 
-  function openSettingsDialog() {
-    Dialog.create({
-      component: RegonSettingsModal,
-      componentProps: {
-        initialValue: regonCount.value,
-      },
-    }).onOk((v) => {
-      regonCount.value = v;
-    });
+  function toggleRegonCount() {
+    regonCount.value = regonCount.value === '9' ? '14' : '9';
   }
 
   return {
     regon,
     regonCount,
     generateREGON9,
+    generateREGON14,
     refreshRegon,
-    openSettingsDialog,
+    toggleRegonCount,
   };
 }

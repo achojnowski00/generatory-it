@@ -1,53 +1,64 @@
 <template>
-  <div class="bg-grey rounded-borders q-px-md q-py-sm">
-    <div class="row justify-between items-center">
-      <div class="row items-center">
-        <q-chip class="q-ma-none text-weight-medium">{{ label }}</q-chip>
+  <article
+    class="number-card"
+    :aria-label="label"
+    :class="{ 'number-card--long': text.length > 20 }"
+  >
+    <div class="number-card__header">
+      <div class="number-card__heading">
+        <h3 class="number-card__label">{{ label }}</h3>
         <slot name="afterLabel" />
       </div>
-      <div class="row q-col-gutter-sm">
-        <div v-if="showSettings">
-          <q-btn
-            @click="$emit('settings')"
-            icon="settings"
-            color="white"
-            text-color="black"
-            style="z-index: 10"
-          />
-        </div>
-        <div>
-          <q-btn
-            @click="$emit('refresh')"
-            icon="loop"
-            color="white"
-            text-color="black"
-            style="z-index: 10"
-          />
-        </div>
+      <div class="number-card__actions">
+        <q-btn
+          flat
+          round
+          dense
+          icon="refresh"
+          class="icon-button"
+          :aria-label="`Wygeneruj ponownie: ${label}`"
+          @click="$emit('refresh')"
+        >
+          <q-tooltip>Wygeneruj ponownie</q-tooltip>
+        </q-btn>
       </div>
     </div>
-    <q-item
-      clickable
-      dense
+    <button
+      type="button"
+      class="number-card__copy"
+      :aria-label="`Kopiuj: ${label}`"
       @click="onClickCopy"
-      style="margin-left: -8px; margin-right: -8px"
-      class="q-mt-sm q-px-sm"
     >
-      <q-item-section style="font-size: 24px">
-        {{ text }}
-      </q-item-section>
-    </q-item>
-  </div>
+      <span class="number-card__value">{{ displayText || text }}</span>
+      <q-icon name="content_copy" class="number-card__copy-icon" aria-hidden="true" />
+    </button>
+    <div v-if="$slots.details" class="number-card__footer">
+      <slot name="details" />
+    </div>
+  </article>
 </template>
 
 <script setup lang="ts">
 import { copyToClipboard, Notify } from 'quasar';
 
-const props = defineProps<{ text: string; label: string; showSettings?: boolean }>();
-defineEmits<{ (e: 'refresh'): void; (e: 'settings'): void }>();
+const props = defineProps<{
+  text: string;
+  label: string;
+  displayText?: string;
+}>();
+defineEmits<{ (e: 'refresh'): void }>();
 
 async function onClickCopy() {
-  await copyToClipboard(props.text);
-  Notify.create({ message: 'Skopiowano do schowka' });
+  try {
+    await copyToClipboard(props.text);
+    Notify.create({
+      message: `${props.label}: skopiowano`,
+      icon: 'check',
+      color: 'primary',
+      timeout: 1400,
+    });
+  } catch {
+    Notify.create({ message: 'Nie udało się skopiować numeru.', color: 'negative', timeout: 2500 });
+  }
 }
 </script>

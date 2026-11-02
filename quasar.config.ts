@@ -87,7 +87,7 @@ export default defineConfig((/* ctx */) => {
     framework: {
       config: {
         notify: {
-          position: 'top-right',
+          position: 'bottom-right',
         },
       },
 
@@ -102,7 +102,7 @@ export default defineConfig((/* ctx */) => {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Notify', 'Dialog'],
+      plugins: ['Notify'],
     },
 
     // animations: 'all', // --- includes all animations

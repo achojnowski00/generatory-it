@@ -1,20 +1,53 @@
-import { Cookies, Dialog } from 'quasar';
-import PeselSettingsModal from 'src/components/PeselSettingsModal.vue';
+import { Cookies } from 'quasar';
 import { ref, watch } from 'vue';
 
+export interface PeselSettings {
+  gender?: 'F' | 'M';
+  birthDate?: string;
+}
+
+export function isValidPeselBirthDate(value: unknown): value is string {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const year = Number(value.slice(0, 4));
+  const month = Number(value.slice(5, 7));
+  const day = Number(value.slice(8, 10));
+  const date = new Date(year, month - 1, day);
+  return (
+    year >= 1800 &&
+    year <= 2299 &&
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day
+  );
+}
+
 export function useFakePesel() {
-  function getCookie() {
-    const cookieVal = Cookies.get('GENERATORY_PESEL_SETTINGS');
-    return JSON.parse(JSON.stringify(cookieVal) ?? '{}');
+  function getCookie(): PeselSettings {
+    let saved: unknown = Cookies.get('GENERATORY_PESEL_SETTINGS');
+    if (typeof saved === 'string') {
+      try {
+        saved = JSON.parse(saved);
+      } catch {
+        return {};
+      }
+    }
+    if (!saved || typeof saved !== 'object') return {};
+    const value = saved as Record<string, unknown>;
+    const settings: PeselSettings = {};
+    if (value.gender === 'F' || value.gender === 'M') settings.gender = value.gender;
+    const birthDate =
+      typeof value.birthDate === 'string' ? value.birthDate.slice(0, 10).replaceAll('/', '-') : '';
+    if (isValidPeselBirthDate(birthDate)) settings.birthDate = birthDate;
+    return settings;
   }
-  const settings = ref<{ gender: 'F' | 'M'; birthDate: Date }>(getCookie());
+  const settings = ref<PeselSettings>(getCookie());
 
   function generatePESEL() {
     const weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3];
 
     // Ustaw datę urodzenia (jeśli brak — losowa)
     const birthDate = settings.value?.birthDate
-      ? new Date(settings.value?.birthDate)
+      ? new Date(`${settings.value.birthDate}T00:00:00`)
       : randomDate(new Date(1940, 0, 1), new Date(2020, 11, 31));
     const year = birthDate.getFullYear();
     const month = birthDate.getMonth() + 1;
@@ -98,22 +131,10 @@ export function useFakePesel() {
     { deep: true },
   );
 
-  function openSettingsDialog() {
-    Dialog.create({
-      component: PeselSettingsModal,
-      componentProps: {
-        initialValue: settings.value,
-      },
-    }).onOk((v) => {
-      settings.value = v;
-    });
-  }
-
   return {
     pesel,
     settings,
     refreshPesel,
     generatePESEL,
-    openSettingsDialog,
   };
 }

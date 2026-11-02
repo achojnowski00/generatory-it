@@ -1,8 +1,8 @@
 {
   "name": "generatory-it",
   "version": "0.0.1",
-  "description": "A Quasar Project",
-  "productName": "Generator fake numerów",
+  "description": "Generatory danych testowych: dokumenty, firma, rachunki, karty płatnicze i pojazdy.",
+  "productName": "Generatory IT — dane testowe",
   "author": "Aleksander Chojnowski <achojnowski00@gmail.com>",
   "type": "module",
   "private": true,
